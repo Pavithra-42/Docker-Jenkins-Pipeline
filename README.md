@@ -106,17 +106,17 @@ To implement the Continuous Integration and Continuous Delivery (CI/CD) pipeline
 2. **Add your application code and a Dockerfile:**
    - Example `ddockerfile`:
      ```bash
-   FROM ubuntu:latest
-/Update package repositories and install Python 3
-RUN apt-get update && \
-    apt-get install -y python3 && \
-    rm -rf /var/lib/apt/lists/*
-/Set working directory
-WORKDIR /app
-/Copy any necessary files into container (if applicable)
-/Specify default command to keep container running
-CMD ["bash"]
-   ```
+     FROM ubuntu:latest
+     #update package repositories and install python 3
+     RUN apt-get update && \
+        apt-get install -y python3 && \
+        rm -rf /var/lib/apt/lists/*
+     #set working directory
+     WORKDIR /app
+     #copy any necessay files into container(if applicable)
+     #specify default command to keep container running
+     CMD ["bash"]
+     ```
 3. **Commit and push the code:**
    ```bash
    git add .
