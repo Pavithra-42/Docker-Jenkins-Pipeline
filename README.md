@@ -132,20 +132,20 @@ To implement the Continuous Integration and Continuous Delivery (CI/CD) pipeline
 
 #### 4.2 Configure the Pipeline Script
 1. **Add the following Pipeline script:**
-   ```groovy
+   ```bash
    pipeline {
     agent any
     environment {
-        DOCKER_HUB_CREDENTIALS = 'af9f1471-32de-49ba-bd72-4f2c2cccd08c' #Credential ID in jenkins
+        DOCKER_HUB_CREDENTIALS = 'af9f1471-32de-49ba-bd72-4f2c2cccd08c'
         DOCKER_IMAGE = 'pavithra42/docker_jenkinci_pipeline'
     }
-    stages {
+   stages {
         stage('Clone Repository') {
             steps {
                 git branch: 'main', url: 'https://github.com/Pavithra-42/Docker-Jenkins-Pipeline.git'
             }
         }
-          stage('Build Docker Image') {
+        stage('Build Docker Image') {
             steps {
                 script {
                     dockerImage = docker.build("${DOCKER_IMAGE}:${env.BUILD_NUMBER}")
@@ -172,6 +172,7 @@ To implement the Continuous Integration and Continuous Delivery (CI/CD) pipeline
         }
     }
 }
+
    ```
 
 ### Step 5: Run and Monitor the Pipeline
