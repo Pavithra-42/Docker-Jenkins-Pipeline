@@ -1,6 +1,14 @@
 FROM ubuntu:latest
-MAINTAINER your_name
-COPY . /app
+
+# Update package repositories and install Python 3
+RUN apt-get update && \
+    apt-get install -y python3 && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set working directory
 WORKDIR /app
-RUN apt-get update && apt-get install -y python3
-CMD ["python3", "app.py"]
+
+# Copy any necessary files into container (if applicable)
+
+# Specify default command to keep container running
+CMD ["bash"]
