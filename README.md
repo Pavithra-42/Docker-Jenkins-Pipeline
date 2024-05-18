@@ -169,9 +169,9 @@ To implement the Continuous Integration and Continuous Delivery (CI/CD) pipeline
                     }
                 }
             }
-        }
+         }
+       }
     }
-}
    ```
 
 ### Step 5: Run and Monitor the Pipeline
