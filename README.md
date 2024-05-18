@@ -52,8 +52,8 @@ To implement the Continuous Integration and Continuous Delivery (CI/CD) pipeline
    ```
 7. **Run the following command to add the Jenkins user to the docker group**
    ```bash
-  sudo usermod -aG docker jenkins```
-  
+   sudo usermod -aG docker jenkins
+   ```  
 8. **After adding the Jenkins user to the docker group, restart the Jenkins service to apply the changes**
    ```bash
   sudo systemctl restart jenkins ```
