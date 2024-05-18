@@ -105,18 +105,18 @@ To implement the Continuous Integration and Continuous Delivery (CI/CD) pipeline
    ```
 2. **Add your application code and a Dockerfile:**
    - Example `ddockerfile`:
-     ```Dockerfile
-     FROM ubuntu:latest
-# Update package repositories and install Python 3
+     ```bash
+   FROM ubuntu:latest
+/Update package repositories and install Python 3
 RUN apt-get update && \
     apt-get install -y python3 && \
     rm -rf /var/lib/apt/lists/*
-# Set working directory
+/Set working directory
 WORKDIR /app
-# Copy any necessary files into container (if applicable)
-# Specify default command to keep container running
+/Copy any necessary files into container (if applicable)
+/Specify default command to keep container running
 CMD ["bash"]
-     ```
+   ```
 3. **Commit and push the code:**
    ```bash
    git add .
@@ -136,7 +136,7 @@ CMD ["bash"]
    pipeline {
     agent any
     environment {
-        DOCKER_HUB_CREDENTIALS = 'af9f1471-32de-49ba-bd72-4f2c2cccd08c'
+        DOCKER_HUB_CREDENTIALS = 'af9f1471-32de-49ba-bd72-4f2c2cccd08c' #Credential ID in jenkins
         DOCKER_IMAGE = 'pavithra42/docker_jenkinci_pipeline'
     }
     stages {
