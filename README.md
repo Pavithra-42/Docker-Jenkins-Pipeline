@@ -139,7 +139,7 @@ To implement the Continuous Integration and Continuous Delivery (CI/CD) pipeline
         DOCKER_HUB_CREDENTIALS = 'af9f1471-32de-49ba-bd72-4f2c2cccd08c'
         DOCKER_IMAGE = 'pavithra42/docker_jenkinci_pipeline'
     }
-   stages {
+    stages {
         stage('Clone Repository') {
             steps {
                 git branch: 'main', url: 'https://github.com/Pavithra-42/Docker-Jenkins-Pipeline.git'
@@ -165,13 +165,14 @@ To implement the Continuous Integration and Continuous Delivery (CI/CD) pipeline
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_HUB_CREDENTIALS}") {
-                        docker.image("${DOCKER_IMAGE}:${env.BUILD_NUMBER}").run('-d -p 8080:80')
+                        sh "docker run -d -p 8081:80 ${DOCKER_IMAGE}:${env.BUILD_NUMBER}"
                     }
-                }
-            }
-         }
+                 }
+              }
+           }
+        }
        }
-    }
+
    ```
 
 ### Step 5: Run and Monitor the Pipeline
