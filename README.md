@@ -104,7 +104,7 @@ To implement the Continuous Integration and Continuous Delivery (CI/CD) pipeline
    cd your_repository
    ```
 2. **Add your application code and a Dockerfile:**
-   - Example `ddockerfile`:
+   - Example `dockerfile`:
      ```bash
      FROM ubuntu:latest
      #update package repositories and install python 3
