@@ -56,7 +56,8 @@ To implement the Continuous Integration and Continuous Delivery (CI/CD) pipeline
    ```  
 8. **After adding the Jenkins user to the docker group, restart the Jenkins service to apply the changes**
    ```bash
-  sudo systemctl restart jenkins ```
+   sudo systemctl restart jenkins
+   ```
 
 ### Step 2: Configure Jenkins
 
