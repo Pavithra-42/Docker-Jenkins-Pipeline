@@ -104,14 +104,18 @@ To implement the Continuous Integration and Continuous Delivery (CI/CD) pipeline
    cd your_repository
    ```
 2. **Add your application code and a Dockerfile:**
-   - Example `Dockerfile`:
+   - Example `ddockerfile`:
      ```Dockerfile
      FROM ubuntu:latest
-     MAINTAINER your_name
-     COPY . /app
-     WORKDIR /app
-     RUN apt-get update && apt-get install -y python3
-     CMD ["python3", "app.py"]
+# Update package repositories and install Python 3
+RUN apt-get update && \
+    apt-get install -y python3 && \
+    rm -rf /var/lib/apt/lists/*
+# Set working directory
+WORKDIR /app
+# Copy any necessary files into container (if applicable)
+# Specify default command to keep container running
+CMD ["bash"]
      ```
 3. **Commit and push the code:**
    ```bash
@@ -130,49 +134,44 @@ To implement the Continuous Integration and Continuous Delivery (CI/CD) pipeline
 1. **Add the following Pipeline script:**
    ```groovy
    pipeline {
-       agent any
-       environment {
-           DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
-           DOCKER_IMAGE = 'your_dockerhub_username/your_repository'
-       }
-       stages {
-           stage('Clone Repository') {
-               steps {
-                   git 'https://github.com/your_username/your_repository.git'
-               }
-           }
-           stage('Build Docker Image') {
-               steps {
-                   script {
-                       dockerImage = docker.build("${DOCKER_IMAGE}:${env.BUILD_NUMBER}")
-                   }
-               }
-           }
-           stage('Push Docker Image') {
-               steps {
-                   script {
-                       docker.withRegistry('https://index.docker.io/v1/', 'DOCKER_HUB_CREDENTIALS') {
-                           dockerImage.push()
-                       }
-                   }
-               }
-           }
-           stage('Deploy Docker Container') {
-               steps {
-                   script {
-                       docker.withRegistry('https://index.docker.io/v1/', 'DOCKER_HUB_CREDENTIALS') {
-                           docker.image("${DOCKER_IMAGE}:${env.BUILD_NUMBER}").run('-d -p 8080:80')
-                       }
-                   }
-               }
-           }
-       }
-       post {
-           always {
-               cleanWs()
-           }
-       }
-   }
+    agent any
+    environment {
+        DOCKER_HUB_CREDENTIALS = 'af9f1471-32de-49ba-bd72-4f2c2cccd08c'
+        DOCKER_IMAGE = 'pavithra42/docker_jenkinci_pipeline'
+    }
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Pavithra-42/Docker-Jenkins-Pipeline.git'
+            }
+        }
+          stage('Build Docker Image') {
+            steps {
+                script {
+                    dockerImage = docker.build("${DOCKER_IMAGE}:${env.BUILD_NUMBER}")
+                }
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_HUB_CREDENTIALS}") {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+        stage('Deploy Docker Container') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_HUB_CREDENTIALS}") {
+                        docker.image("${DOCKER_IMAGE}:${env.BUILD_NUMBER}").run('-d -p 8080:80')
+                    }
+                }
+            }
+        }
+    }
+}
    ```
 
 ### Step 5: Run and Monitor the Pipeline
