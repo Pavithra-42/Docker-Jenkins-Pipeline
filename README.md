@@ -24,26 +24,31 @@ To implement the Continuous Integration and Continuous Delivery (CI/CD) pipeline
    ```
 
 #### 1.3 Install Jenkins
-1. **Add Jenkins repository key to the system:**
-   ```bash
-   wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+1. **Install Java JDK**
+    ```bash
+   sudo apt install openjdk-11-jdk -y
    ```
-2. **Add the repository:**
+2. **Add Jenkins repository key to the system:**
+   ```bash
+   curl -fsSL https://pkg.jenkins.io/debian/jenkins.io.key | sudo tee /etc/apt/trusted.gpg.d/jenkins.asc
+   ```
+3. **Add the repository:**
    ```bash
    sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
    ```
-3. **Update package information:**
+4. **Update package information:**
    ```bash
    sudo apt-get update
    ```
-4. **Install Jenkins:**
+5. **Install Jenkins:**
    ```bash
    sudo apt-get install jenkins
    ```
-5. **Start and enable Jenkins service:**
+6. **Start and enable Jenkins service:**
    ```bash
    sudo systemctl start jenkins
    sudo systemctl enable jenkins
+   sudo systemctl status jenkins
    ```
 
 ### Step 2: Configure Jenkins
