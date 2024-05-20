@@ -136,7 +136,7 @@ To implement the Continuous Integration and Continuous Delivery (CI/CD) pipeline
    pipeline {
     agent any
     environment {
-        DOCKER_HUB_CREDENTIALS = 'af9f1471-32de-49ba-bd72-4f2c2cccd08c'
+        DOCKER_HUB_CREDENTIALS = 'af9f1471-32de-49ba-bd72-4f2c2cccd08c' /Global credential ID of dockerhub
         DOCKER_IMAGE = 'pavithra42/docker_jenkinci_pipeline'
     }
     stages {
