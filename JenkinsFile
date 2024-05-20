@@ -1,39 +1,37 @@
 pipeline {
- agent any
- environment {
-     DOCKER_HUB_CREDENTIALS = 'af9f1471-32de-49ba-bd72-4f2c2cccd08c' //Global credential ID of dockerhub
-     DOCKER_IMAGE = 'pavithra42/docker_jenkinci_pipeline'
- }
- stages {
-     stage('Clone Repository') {
-         steps {
-             git branch: 'main', url: 'https://github.com/Pavithra-42/Docker-Jenkins-Pipeline.git'
-         }
-     }
-     stage('Build Docker Image') {
-         steps {
-             script {
-                 dockerImage = docker.build("${DOCKER_IMAGE}:${env.BUILD_NUMBER}")
-             }
-         }
-     }
-     stage('Push Docker Image') {
-         steps {
-             script {
-                 docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_HUB_CREDENTIALS}") {
-                     dockerImage.push()
-                 }
-             }
-         }
-     }
-     stage('Deploy Docker Container') {
-         steps {
-             script {
-                 docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_HUB_CREDENTIALS}") {
-                     sh "docker run -d -p 8081:80 ${DOCKER_IMAGE}:${env.BUILD_NUMBER}"
-                 }
-              }
-           }
-        }
-     }
+    agent any
+    environment {
+        DOCKER_HUB_CREDENTIALS = 'af9f1471-32de-49ba-bd72-4f2c2cccd08c' // This is the Global credential ID of dockerhub
+        DOCKER_IMAGE = 'pavithra42/docker_jenkinci_pipeline'
     }
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Pavithra-42/Docker-Jenkins-Pipeline.git'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    dockerImage = docker.build("${DOCKER_IMAGE}:${env.BUILD_NUMBER}")
+                }
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_HUB_CREDENTIALS}") {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+        stage('Deploy Docker Container') {
+            steps {
+                script {
+                    sh "docker run -d -p 8081:80 ${DOCKER_IMAGE}:${env.BUILD_NUMBER}"
+                }
+            }
+        }
+    }
+}
